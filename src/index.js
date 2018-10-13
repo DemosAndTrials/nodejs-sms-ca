@@ -19,6 +19,9 @@ app.set('view engine', 'ejs');
 /**
  * ROUTES
  */
+// serve static files
+app.use(express.static(path.join(__dirname, "static")));
+// controllers
 app.use('/', Routes);
 //app.use('/api', ApiRoutes);
 // errors

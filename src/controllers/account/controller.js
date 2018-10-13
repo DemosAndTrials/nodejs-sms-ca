@@ -1,4 +1,3 @@
-import AccountModel from './model';
 
 const createAccount = async (req, res) => {
 
