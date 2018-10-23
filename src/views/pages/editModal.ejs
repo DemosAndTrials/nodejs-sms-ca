@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SMS Message configuration</title>
+    <% include ../partials/head %>
+    <script data-main="/js/main.js" src="/js/require.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+
+
+<section class="stage slds-grid slds-grid--vertical slds-nowrap">
+
+    <div class="slds-shrink-none">
+        <div class="slds-page-header">
+            SMS Message configuration
+        </div>
+    </div>
+
+    <!--<input type="hidden" id="numSteps" th:value="${numSteps}">-->
+
+    <form id="genericActivity">
+        <!-- Stage Main -->
+        <div id="step1"
+             class="step slds-grid slds-wrap slds-container--medium slds-p-vertical--medium slds-align_absolute-center">
+            <div class="slds-col--padded slds-size--1-of-1 slds-medium-size--10-of-12 slds-large-size--10-of-12 slds-p-bottom_medium">
+                <article class="slds-text-longform">
+                    <div class="slds-form slds-form_stacked">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="messageName">Name</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="messageName" class="slds-input" placeholder="sms title">
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="messageContent">
+                                <abbr class="slds-required" title="required">* </abbr>Message</label>
+                            <div class="slds-form-element__control">
+                                <textarea id="messageContent" class="slds-textarea" rows="8"
+                                          placeholder="enter sms message" maxlength="160"></textarea>
+                                <div class="slds-grid slds-grid_align-end">
+                                    <span class="slds-badge"><label id="messageCount">0</label>/160</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <div class="slds-box">
+                                <h2 class="slds-text-heading--label">Personalization Strings:</h2>
+                                <p>
+                                <ul class="slds-list_dotted">
+                                    <li><a id="placeholderTitle" href="javascript:void(0);">%%PlaceholderTitle%%</a> -
+                                        Title
+                                    </li>
+                                    <li><a id="placeholder1" href="javascript:void(0);">%%Placeholder1%%</a> - Nom</li>
+                                    <li><a id="placeholder2" href="javascript:void(0);">%%Placeholder2%%</a> - Prénom
+                                    </li>
+                                    <!--<li><a id="placeholder3" href="javascript:void(0);">%%Placeholder3%%</a> - Sexe</li>-->
+                                    <li><a id="placeholder4" href="javascript:void(0);">%%Placeholder3%%</a> - Date
+                                        suspension
+                                    </li>
+                                    <li><a id="placeholder5" href="javascript:void(0);">%%Placeholder4%%</a> - Date
+                                        résiliation
+                                    </li>
+                                    <li><a id="placeholder6" href="javascript:void(0);">%%Placeholder5%%</a> - TBD</li>
+                                </ul>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+
+        </div>
+
+        <div id="step2" class="step" style="display:none;">
+
+            <div class="slds-box">
+                <div class="slds-grid slds-wrap slds-container--medium slds-container--center slds-order-1 slds-medium-order--2 slds-p-vertical--none">
+                    <div class="slds-col--padded slds-col-rule--right slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--8-of-12 slds-p-bottom--medium">
+                        <article class="slds-text-longform">
+                            <h2 class="slds-text-heading--label">Test step 2</h2>
+                            <ul class="slds-list_dotted">
+                                <li>
+                                    Additional information here.
+                                </li>
+                                <li>
+                                    Additional information here.
+                                </li>
+                            </ul>
+                            <p>
+                                Note: some note.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="step3" class="step" style="display:none;">
+
+            <div class="slds-box">
+                <div class="slds-grid slds-wrap slds-container--medium slds-container--center slds-order-1 slds-medium-order--2 slds-p-vertical--none">
+                    <div class="slds-col--padded slds-col-rule--right slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--8-of-12 slds-p-bottom--medium">
+                        <article class="slds-text-longform">
+                            <h2 class="slds-text-heading--label">Test step 3</h2>
+                            <ul class="slds-list_dotted">
+                                <li>
+                                    Additional information here.
+                                </li>
+                                <li>
+                                    Additional information here.
+                                </li>
+                            </ul>
+                            <p>
+                                Note: some note.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    j$ = jQuery.noConflict();
+
+    // placeholder clicked
+    j$('[id^=placeholder]').click(function () {
+        var placeholder = j$(this).text();
+        insertAtCursor(placeholder)
+    });
+
+    function insertAtCursor(placeholder) {
+        var caretPos = document.getElementById("messageContent").selectionStart;
+        var caretEnd = document.getElementById("messageContent").selectionEnd;
+        var textAreaTxt = $("#messageContent").val();
+        // check length
+        if ((parseInt(j$("#messageCount").html(), 10) + calcPlaceholderLength(placeholder)) > 160) {
+            alert("Message length should not exceed 160 characters");
+            return;
+        }
+
+        $("#messageContent").val(textAreaTxt.substring(0, caretPos) + placeholder + textAreaTxt.substring(caretEnd));
+
+        $('#messageContent').focus();
+        document.getElementById('messageContent').selectionStart = caretPos + placeholder.length
+        document.getElementById('messageContent').selectionEnd = caretPos + placeholder.length
+        countMessage()
+    }
+
+    j$("#messageContent").keyup(function () {
+        countMessage();
+    });
+
+    function countMessage() {
+
+        var msg = j$('#messageContent').val();
+        var length = msg.length;
+
+        var count = (msg.match(/%%PlaceholderTitle%%/g) || []).length;
+        length = length - (count * 20) + (count * 8)
+        count = (msg.match(/%%Placeholder1%%/g) || []).length;
+        length = length - (count * 16) + (count * 15)
+        count = (msg.match(/%%Placeholder2%%/g) || []).length;
+        length = length - (count * 16) + (count * 15)
+        count = (msg.match(/%%Placeholder3%%/g) || []).length;
+        length = length - (count * 16) + (count * 13)
+        count = (msg.match(/%%Placeholder4%%/g) || []).length;
+        length = length - (count * 16) + (count * 13)
+        count = (msg.match(/%%Placeholder5%%/g) || []).length;
+        length = length - (count * 16) + (count * 10)
+
+        j$("#messageCount").html(length);
+        if (length > 160) {
+            alert("Message length should not exceed 160 characters");
+            return false;
+        }
+        return true;
+    }
+
+    function calcPlaceholderLength(placeholder) {
+        if (placeholder.includes("Title")) {
+        }
+        return 8;
+        if (placeholder.includes("1"))
+            return 15;
+        if (placeholder.includes("2"))
+            return 15;
+        if (placeholder.includes("3"))
+            return 13;
+        if (placeholder.includes("4"))
+            return 13;
+        if (placeholder.includes("5"))
+            return 10;
+    }
+
+</script>
+</body>
+</html>

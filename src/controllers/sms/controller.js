@@ -7,8 +7,15 @@
  * Creation of config.json
  */
 const getConfig = async (req, res) => {
-    // TODO retrieve config from service
-    return res.status(200).json({ name: "config", desc: "desc" });
+    console.log("getConfig");
+    try {
+        var result = '{ name: "config", desc: "desc" }';//smsService.getConfig();
+        console.log("config.json: " + result);
+        return res.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+    }
+    return res.status(400).json({ result: "ERROR" });
 }
 
 /**
@@ -52,8 +59,15 @@ const runnungHoverPage = (req, res) => {
 * }
  */
 const execute = async (req, res) => {
-    // TODO retrieve config from service
-    return res.status(200).json({ result: "OK" });
+    console.log("*** execute activity with payload: " + req.body);
+    try {
+        var result = '';//smsService.send(req.body);
+        console.log("*** execute activity completed with result: " + result);
+        return res.status(200).json({ result: "OK" });
+    } catch (error) {
+        console.log(error);
+    }
+    return res.status(400).json({ result: "ERROR" });
 }
 
 /**
@@ -69,10 +83,10 @@ const execute = async (req, res) => {
 * } 
  */
 const save = async (req, res) => {
-    // TODO retrieve config from service
+    console.log("*** save activity: " + req.body);
     return res.status(200).json({ result: "OK" });
 }
- /**
+/**
 * publish - Notification is sent to this endpoint when a user publishes the interaction.
 * called on journey activation
 * example of request's body:
@@ -84,9 +98,9 @@ const save = async (req, res) => {
 * "interactionVersion": "2",
 * "isPublished": true
 * }
-  */
+ */
 const publish = async (req, res) => {
-    // TODO retrieve config from service
+    console.log("*** publish activity: " + req.body);
     return res.status(200).json({ result: "OK" });
 }
 
@@ -103,7 +117,7 @@ const publish = async (req, res) => {
 * }
  */
 const validate = async (req, res) => {
-    // TODO retrieve config from service
+    console.log("*** validate activity: " + req.body);
     return res.status(200).json({ result: "OK" });
 }
 
@@ -112,7 +126,7 @@ const validate = async (req, res) => {
 * The notification will be for that particular version’s activity (optional).
  */
 const stop = async (req, res) => {
-    // TODO retrieve config from service
+    console.log("*** stop activity: " + req.body);
     return res.status(200).json({ result: "OK" });
 }
 

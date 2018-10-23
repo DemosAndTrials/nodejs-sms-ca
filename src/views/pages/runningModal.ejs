@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Send SMS Details</title>
+    <% include ../partials/head %>
+    <script data-main="/js/modalMain.js" src="/js/require.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="slds-shrink-none">
+        <div class="slds-page-header">
+            <h2 class="slds-text-heading--label">Send SMS Details</h2>
+        </div>
+        <div class="slds-box">
+            <div class="step slds-grid slds-wrap slds-container--medium slds-p-vertical--medium slds-align_absolute-center">
+                <div class="slds-col--padded slds-size--1-of-1 slds-medium-size--10-of-12 slds-large-size--10-of-12 slds-p-bottom--xx-small">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="messageName">Name</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" id="messageName" class="slds-input" placeholder="sms title" disabled="">
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="messageContent">Message</label>
+                        <div class="slds-form-element__control">
+                            <textarea id="messageContent" class="slds-textarea" rows="8" disabled placeholder="enter sms message"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
