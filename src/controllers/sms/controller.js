@@ -1,3 +1,4 @@
+import smsService from './service'
 /**
  * Custom Activity Controller
  */
@@ -8,9 +9,10 @@
  */
 const getConfig = async (req, res) => {
     console.log("getConfig");
+    var host = req.protocol + '://' + req.headers.host;
     try {
-        var result = '{ name: "config", desc: "desc" }';//smsService.getConfig();
-        console.log("config.json: " + result);
+        var result = smsService.getConfig(host);
+        console.log("config.json: " + JSON.stringify(result))  ;
         return res.status(200).json(result);
     } catch (error) {
         console.log(error);
@@ -29,14 +31,14 @@ const editModalPage = (req, res) => {
 /**
 * running modal
 */
-const runnungModalPage = (req, res) => {
+const runningModalPage = (req, res) => {
     res.render('pages/runningModal');
 }
 
 /**
 * running hover
 */
-const runnungHoverPage = (req, res) => {
+const runningHoverPage = (req, res) => {
     res.render('pages/runningHover');
 }
 
@@ -54,16 +56,16 @@ const runnungHoverPage = (req, res) => {
 * "activityId": "5d88fd34-ba45-42ef-abda-d4a1f5830171",
 * "definitionInstanceId": "45e3ec68-7b70-4e0d-9c13-218344f90fcb",
 * "activityInstanceId": "b8f5640b-ecbe-411e-a143-29d21a89159a",
-* "keyValue": "contact_emai@mail.com",
+* "keyValue": "contact_email@mail.com",
 * "mode": 0
 * }
  */
 const execute = async (req, res) => {
-    console.log("*** execute activity with payload: " + req.body);
+    console.log("*** execute activity with payload: " + JSON.stringify(req.body));
     try {
-        var result = '';//smsService.send(req.body);
-        console.log("*** execute activity completed with result: " + result);
-        return res.status(200).json({ result: "OK" });
+        var result = smsService.send(req.body);
+        console.log("*** execute activity completed with result: " + JSON.stringify(result));
+        return res.status(200).json(result);
     } catch (error) {
         console.log(error);
     }
@@ -133,8 +135,8 @@ const stop = async (req, res) => {
 export {
     getConfig,
     editModalPage,
-    runnungHoverPage,
-    runnungModalPage,
+    runningHoverPage,
+    runningModalPage,
     execute,
     save,
     publish,
