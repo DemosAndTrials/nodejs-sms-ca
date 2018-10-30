@@ -1,7 +1,7 @@
 import {
     v4 as uuid
-  } from 'uuid';
-  
+} from 'uuid';
+import request from 'request';
 
 class SmsService {
 
@@ -119,7 +119,7 @@ class SmsService {
     /**
      * Send SMS
      */
-    send(args) {
+    async send(args) {
         console.log(args.inArguments.length);
         // content
         var content = args.inArguments[0];
@@ -145,7 +145,7 @@ class SmsService {
                         message: finalMessage,
                         priority: "1",
                         encoding: "fr",
-                        effectiveDate:  (new Date()).toLocaleString('en-GB', {
+                        effectiveDate: (new Date()).toLocaleString('en-GB', {
                             year: 'numeric',
                             month: 'numeric',
                             day: 'numeric',
@@ -162,10 +162,27 @@ class SmsService {
                 }
             }
         };
+        console.log("--> Request: " + JSON.stringify(jsonBody));
+        try {
+            let res = await this.doRequest(jsonBody);
+            console.log("--> Response: " + JSON.stringify(res));
+        } catch (error) {
+            return {
+                sendResult: "KO",
+                sendName: msgName,
+                sendDate: (new Date()).toLocaleString('en-GB', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }),
+                sendContent: finalMessage,
+                sendComment: error
+            };
+        }
 
-
-        console.log("--> Request: " + jsonBody);
-       
         return {
             sendResult: "OK",
             sendName: msgName,
@@ -210,6 +227,34 @@ class SmsService {
         };
         var dt = new Date(stringDate);
         return dt.toLocaleString('fr-FR', options);
+    }
+
+    /**
+     * Post to SMS Gateway
+     */
+    doRequest(body) {
+        return new Promise(function (resolve, reject) {
+
+            var options = {
+                uri: 'http://www.mocky.io/v2/5bd776c83500002c47fd80cc',
+                method: 'POST',
+                json: body
+            };
+
+            request(options, function (error, res, body) {
+                if (!error && res.statusCode == 200) {
+                    console.log("--> body: " + JSON.stringify(body));
+                    resolve(body);
+                } else {
+                    console.log("--> res: " + JSON.stringify(res));
+                    console.log("--> statusCode: " + res.statusCode);
+                    console.log("--> error: " + error);
+                    console.log("--> body: " + JSON.stringify(body));
+                    reject(!error ? res.statusCode : error);
+                }
+            });
+
+        });
     }
 }
 

@@ -63,7 +63,7 @@ const runningHoverPage = (req, res) => {
 const execute = async (req, res) => {
     console.log("*** execute activity with payload: " + JSON.stringify(req.body));
     try {
-        var result = smsService.send(req.body);
+        var result = await smsService.send(req.body);
         console.log("*** execute activity completed with result: " + JSON.stringify(result));
         return res.status(200).json(result);
     } catch (error) {
