@@ -18,7 +18,7 @@ define(['postmonger'], function (Postmonger) {
 
     connection.on('initActivityRunningHover', function (payload) {
         console.log('initActivityRunningHover');
-        //console.log('payload', JSON.stringify(payload));
+        console.log('payload', JSON.stringify(payload));
 
         if (payload) {
             var jsonPayload = payload['arguments'].execute.inArguments;
@@ -40,7 +40,7 @@ define(['postmonger'], function (Postmonger) {
 
     connection.on('initActivityRunningModal', function (payload) {
         console.log('initActivityRunningModal');
-        //console.log('payload', JSON.stringify(payload));
+        console.log('payload', JSON.stringify(payload));
 
         if (payload) {
             var jsonPayload = payload['arguments'].execute.inArguments;
