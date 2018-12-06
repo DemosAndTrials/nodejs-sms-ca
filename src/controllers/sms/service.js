@@ -38,7 +38,7 @@ class SmsService {
                 }
             },
             configurationArguments: {
-                applicationExtensionKey: "bba2d9a6-8b74-474a-a08e-d52ae317adb6",
+                applicationExtensionKey: "722956e9-3c19-46e6-adab-365d98ca74a4",
                 save: {
                     url: host + "/sms/save",
                     useJwt: "false"
