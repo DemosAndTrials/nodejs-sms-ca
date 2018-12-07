@@ -9,7 +9,7 @@ import smsService from './service'
  */
 const getConfig = async (req, res) => {
     console.log("getConfig");
-    var host = req.protocol + '://' + req.headers.host;
+    var host = 'https://' + req.headers.host;
     try {
         var result = smsService.getConfig(host);
         console.log("config.json: " + JSON.stringify(result))  ;

@@ -9,7 +9,7 @@ routes.get('/ui', SmsController.editModalPage);
 routes.get('/ui/edit', SmsController.editModalPage);
 routes.get('/ui/config', SmsController.editModalPage);
 routes.get('/ui/modal', SmsController.runningModalPage);
-routes.get('/ui/    ', SmsController.runningHoverPage);
+routes.get('/ui/hover', SmsController.runningHoverPage);
 routes.post('/execute', SmsController.execute);
 routes.post('/save', SmsController.save);
 routes.post('/publish', SmsController.publish);
