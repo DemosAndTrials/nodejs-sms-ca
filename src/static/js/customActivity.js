@@ -239,6 +239,8 @@ define(['postmonger'], function (Postmonger) {
 
         });
         inArgPayload['arguments'].execute.inArguments.push(formArg);
+         // try metadata
+         inArgPayload['metaData'].testData = formArg;
         // add data from schema
         // dynamic binding
         var formArg = {};
