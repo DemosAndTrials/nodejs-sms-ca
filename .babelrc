@@ -10,7 +10,7 @@
         }]
     ],
     "ignore": [
-        "**/vendor", 
+        "./src/static",
         "/vendor/postmonger.js",
         "/vendor/postmonger.js",
         "/vendor/postmonger.js",
